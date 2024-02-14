@@ -11,6 +11,28 @@
         </a-tag>
       </a-space>
     </template>
+    <template #status="{ record }">
+      <a-space>
+        <a-tag
+          :color="
+            record.status === 2
+              ? 'green'
+              : record.status === 3
+              ? 'red'
+              : 'orange'
+          "
+          >{{
+            record.status === 0
+              ? "待判题"
+              : record.status === 1
+              ? "判题中"
+              : record.status === 2
+              ? "成功"
+              : "失败"
+          }}
+        </a-tag>
+      </a-space>
+    </template>
   </a-table>
   <a-pagination
     v-model:current="pageParameters.current"
@@ -27,6 +49,10 @@ import { QuestionSubmitControllerService } from "../../generated";
 
 const columns = [
   {
+    title: "id",
+    dataIndex: "id",
+  },
+  {
     title: "题目名称",
     dataIndex: "questionVO.title",
   },
@@ -41,6 +67,10 @@ const columns = [
   {
     title: "提交时间",
     dataIndex: "createTime",
+  },
+  {
+    title: "状态",
+    slotName: "status",
   },
 ];
 
