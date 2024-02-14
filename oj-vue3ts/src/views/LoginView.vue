@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { reactive } from "vue";
 import { UserControllerService, UserLoginRequest } from "../../generated";
 import { useRouter } from "vue-router";
@@ -28,9 +28,9 @@ const onHandleSubmit = async () => {
       </a-form-item>
       <a-form-item field="userPassword" label="密码">
         <a-input
-          type="password"
           v-model="form.userPassword"
           placeholder="请输入密码"
+          type="password"
         />
       </a-form-item>
       <div style="float: right; margin-left: 90%">

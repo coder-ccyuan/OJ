@@ -10,6 +10,7 @@ import com.cpy.OJ.constant.UserConstant;
 import com.cpy.OJ.exception.BusinessException;
 import com.cpy.OJ.exception.ThrowUtils;
 import com.cpy.OJ.model.dto.questionSubmit.QuestionSubmitAddRequest;
+import com.cpy.OJ.model.dto.questionSubmit.QuestionSubmitQueryRequest;
 import com.cpy.OJ.model.entity.QuestionSubmit;
 import com.cpy.OJ.model.entity.User;
 import com.cpy.OJ.model.vo.QuestionSubmitVO;
@@ -72,4 +73,16 @@ public class QuestionSubmitController {
         return ResultUtils.success(newQuestionSubmitId);
     }
 
+    /**
+     * 题目提交信息页面
+     *
+     * @return
+     */
+    @GetMapping("/list/page/vo")
+    public BaseResponse<Page<QuestionSubmitVO>> listQuestionSubmitVOByPage(QuestionSubmitQueryRequest request) {
+        long current = request.getCurrent();
+        long pageSize = request.getPageSize();
+        Page<QuestionSubmit> page = questionSubmitService.page(new Page<>(current, pageSize));
+        return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(page));
+    }
 }

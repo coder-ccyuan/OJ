@@ -1,11 +1,31 @@
 <template>
+  <a-space class="search">
+    题目：
+    <a-mention
+      v-model="SearchParameters.title"
+      :style="{ width: '380px' }"
+      placeholder="输入题目标题"
+    />
+    标签：
+    <a-input-tag
+      v-model:model-value="SearchParameters.tags"
+      :max-tag-count="5"
+      :style="{ width: '380px' }"
+      allow-clear
+      placeholder="输入标签（回车）"
+    />
+    <a-button type="primary" @click="onSearch">
+      <icon-search />
+    </a-button>
+  </a-space>
+  <a-divider />
   <a-table :columns="columns" :data="data" :pagination="false">
     <template #optional="{ record }">
       <a-button type="primary" @click="onDoQuestion(record)">做题</a-button>
     </template>
     <template #tag="{ record }">
       <a-space>
-        <a-tag :key="index" v-for="(tag, index) in record.tags"
+        <a-tag v-for="(tag, index) in record.tags" :key="index" color="green"
           >{{ tag }}
         </a-tag>
       </a-space>
@@ -13,21 +33,21 @@
   </a-table>
   <a-modal
     v-model:visible="visible"
-    @ok="handleOk"
     :hide-cancel="true"
-    ok-text="关闭"
     fullscreen
+    ok-text="关闭"
+    @ok="handleOk"
   >
     <template #title> {{ recoredKey.title }}</template>
     <div>
-      <DoQuestionView></DoQuestionView>
+      <DoQuestionView :record="recoredKey"></DoQuestionView>
     </div>
   </a-modal>
   <a-pagination
-    :show-total="true"
-    v-model:total="pageParameters.total"
     v-model:current="pageParameters.current"
+    v-model:total="pageParameters.total"
     :page-size="pageParameters.pageSize"
+    :show-total="true"
     @change="onPageChange()"
   />
 </template>
@@ -76,6 +96,7 @@ const SearchParameters = reactive({
   current: pageParameters.current,
   pageSize: pageParameters.pageSize,
   title: "",
+  tags: [],
 });
 const loadDate = async () => {
   const res = await QuestionControllerService.listQuestionVoByPageUsingPost(
@@ -102,7 +123,7 @@ const recoredKey = ref({
     stackLimit: 1000,
     timeLimit: 1000,
   },
-  tags: [],
+  tags: null,
   title: "",
 });
 const onDoQuestion = (record) => {
@@ -116,4 +137,13 @@ const onPageChange = () => {
   SearchParameters.current = pageParameters.current;
   loadDate();
 };
+const onSearch = () => {
+  loadDate();
+};
 </script>
+<style scoped>
+.search {
+  align-items: center;
+  display: inline-flex;
+}
+</style>

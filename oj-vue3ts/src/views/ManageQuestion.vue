@@ -3,13 +3,13 @@
     <template #optional="{ record }">
       <a-button type="primary" @click="onUpdate(record)">更新</a-button>
       <span>|</span>
-      <a-button type="primary" status="danger" @click="onDelete(record)"
+      <a-button status="danger" type="primary" @click="onDelete(record)"
         >删除
       </a-button>
     </template>
     <template #tag="{ record }">
       <a-space>
-        <a-tag :key="index" v-for="(tag, index) in record.tags"
+        <a-tag v-for="(tag, index) in record.tags" :key="index" color="green"
           >{{ tag }}
         </a-tag>
       </a-space>
@@ -17,9 +17,9 @@
   </a-table>
   <a-modal
     v-model:visible="visible"
-    @ok="handleOk"
-    @cancel="handleCancel"
     fullscreen
+    @cancel="handleCancel"
+    @ok="handleOk"
   >
     <template #title> 修改题目</template>
     <div>
@@ -27,10 +27,10 @@
     </div>
   </a-modal>
   <a-pagination
-    :show-total="true"
-    v-model:total="pageParameters.total"
     v-model:current="pageParameters.current"
+    v-model:total="pageParameters.total"
     :page-size="pageParameters.pageSize"
+    :show-total="true"
     @change="onPageChange()"
   />
 </template>
@@ -39,6 +39,7 @@
 import { onMounted, reactive, ref } from "vue";
 import { QuestionControllerService } from "../../generated";
 import UpdateQuestion from "@/components/UpdateQuestion.vue";
+import { Message } from "@arco-design/web-vue";
 
 const columns = [
   {
@@ -127,10 +128,9 @@ const onDelete = async (record) => {
       return item.id !== record.id;
     });
     pageParameters.total--;
-    alert("删除成功");
+    Message.success("删除成功");
   } else {
-    // this.$message.info("删除失败");
-    alert("删除失败");
+    alert("删除失败" + res.message);
   }
 };
 const onPageChange = () => {

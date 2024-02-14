@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class JudgeInfo {
     /**
-     * 信息
+     * 判题结果
      */
     private String message;
     /**

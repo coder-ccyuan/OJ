@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from "vue";
 import { routes } from "@/router/routes";
 import { useRouter } from "vue-router";
@@ -55,15 +55,15 @@ router.afterEach((to, from, next) => {
   <!--  align 样式居中 wrap 关闭换行-->
   <a-row
     id="globalHeader"
-    style="margin-bottom: 16px"
-    align="center"
     :wrap="false"
+    align="center"
+    style="margin-bottom: 16px"
   >
     <a-col flex="auto">
       <div>
         <a-menu
-          mode="horizontal"
           v-model:selected-keys="selectedKeys"
+          mode="horizontal"
           @menu-item-click="menuItemClick"
         >
           <a-menu-item
@@ -73,14 +73,14 @@ router.afterEach((to, from, next) => {
           >
             <div class="title-bar">
               <img
+                alt="logo"
                 class="logo"
                 src="http://1.12.46.177/images/images.jpg"
-                alt="logo"
               />
               <div class="title">鲲OJ</div>
             </div>
           </a-menu-item>
-          <a-menu-item :key="item.path" v-for="item in visibleRoutes">
+          <a-menu-item v-for="item in visibleRoutes" :key="item.path">
             {{ item.name }}
           </a-menu-item>
         </a-menu>

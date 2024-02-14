@@ -1,7 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import MDEditor from "@/components/MDEditor.vue";
 import { nextTick, reactive, ref } from "vue";
 import { QuestionControllerService } from "../../generated";
+import { Message } from "@arco-design/web-vue";
 
 const form = reactive({
   answer: "",
@@ -94,9 +95,9 @@ const handleRemove = (key: string) => {
 const onsubmit = async () => {
   let res = await QuestionControllerService.addQuestionUsingPost(form);
   if (res.code === 0) {
-    alert("成功");
+    Message.success("添加成功");
   } else {
-    alert("添加失败");
+    alert("添加失败" + res.message);
   }
 };
 </script>
@@ -115,8 +116,8 @@ const onsubmit = async () => {
           <a-tag
             v-for="(tag, index) of form.tags"
             :key="tag"
-            :color="colors[index]"
             :closable="index !== -1"
+            :color="colors[index]"
             @close="handleRemove(tag)"
           >
             {{ tag }}
@@ -124,11 +125,11 @@ const onsubmit = async () => {
           <a-input
             v-if="showInput"
             ref="inputRef"
+            v-model.trim="inputVal"
             :style="{ width: '90px' }"
             size="mini"
-            v-model.trim="inputVal"
-            @keyup.enter="handleAddTag"
             @blur="handleAddTag"
+            @keyup.enter="handleAddTag"
           />
           <a-tag
             v-else
@@ -157,15 +158,15 @@ const onsubmit = async () => {
       堆栈限制：
       <a-input-number v-model="form.judgeConfig.stackLimit"></a-input-number>
       <h3>内容</h3>
-      <MDEditor :value="form.content" :onChange="onChangeContent"></MDEditor>
+      <MDEditor :onChange="onChangeContent" :value="form.content"></MDEditor>
       <h3>答案</h3>
-      <MDEditor :value="form.answer" :onChange="onChangeAnswer"></MDEditor>
+      <MDEditor :onChange="onChangeAnswer" :value="form.answer"></MDEditor>
       <h3>判例</h3>
       <a-form-item
-        :field="`judgeCase[${index}]`"
-        :label="'判例' + index"
         v-for="(item, index) in form.judgeCase"
         :key="index"
+        :field="`judgeCase[${index}]`"
+        :label="'判例' + index"
       >
         输入
         <a-input v-model="item.input" placeholder="输入判例" />
@@ -177,7 +178,7 @@ const onsubmit = async () => {
         >添加判例
       </a-button>
       <br />
-      <a-button @click="onsubmit" type="primary">提交</a-button>
+      <a-button type="primary" @click="onsubmit">提交</a-button>
     </a-form>
   </div>
 </template>

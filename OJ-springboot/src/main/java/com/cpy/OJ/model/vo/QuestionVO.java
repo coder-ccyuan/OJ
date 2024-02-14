@@ -1,19 +1,16 @@
 package com.cpy.OJ.model.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.cpy.OJ.model.dto.question.JudgeCase;
 import com.cpy.OJ.model.dto.question.JudgeConfig;
+import com.cpy.OJ.model.entity.Question;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.cpy.OJ.model.entity.Question;
+import lombok.Data;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import lombok.Data;
-import org.springframework.beans.BeanUtils;
 
 /**
  * 题目视图

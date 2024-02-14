@@ -2,8 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type JudgeConfig = {
-  memoryLimit?: number;
-  stackLimit?: number;
-  timeLimit?: number;
+export type JudgeInfo = {
+  memory?: number;
+  message?: string;
+  time?: number;
 };

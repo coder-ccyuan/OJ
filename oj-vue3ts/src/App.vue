@@ -8,7 +8,7 @@
 #app {
 }
 </style>
-<script setup lang="ts">
+<script lang="ts" setup>
 import BasicLayout from "@/layouts/BasicLayout.vue";
 import { onMounted } from "vue";
 import userStore from "@/store/userStore";

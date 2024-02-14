@@ -43,12 +43,18 @@ public class QuestionSubmitVO implements Serializable {
      * 创建用户 id
      */
     private Long userId;
-
+    /**
+     * 提交用户
+     */
+    private UserVO userVO;
     /**
      * 题目Id
      */
     private Long questionId;
-
+    /**
+     * 题目
+     */
+    private QuestionVO questionVO;
     /**
      * 判题状态 0-待判题 1-判题中 2-成功 3-失败
      */
@@ -78,7 +84,7 @@ public class QuestionSubmitVO implements Serializable {
         QuestionSubmit questionSubmit = new QuestionSubmit();
         BeanUtils.copyProperties(questionSubmitVO, questionSubmit);
         JudgeInfo judgeInfo = questionSubmitVO.getJudgeInfo();
-        if (judgeInfo!=null){
+        if (judgeInfo != null) {
             questionSubmit.setJudgeInfo(GSON.toJson(judgeInfo));
         }
         return questionSubmit;

@@ -1,12 +1,12 @@
 <template>
-  <Editor :value="props.value" :plugins="plugins" @change="handleChange" />
+  <Editor :plugins="plugins" :value="props.value" @change="handleChange" />
 </template>
 
 <script setup>
 import gfm from "@bytemd/plugin-gfm";
 import highlight from "@bytemd/plugin-highlight";
 import { Editor } from "@bytemd/vue-next";
-import { ref, defineProps, watchEffect } from "vue";
+import { defineProps, ref, watchEffect } from "vue";
 
 const plugins = [
   gfm(),

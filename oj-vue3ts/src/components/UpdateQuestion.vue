@@ -1,6 +1,6 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import MDEditor from "@/components/MDEditor.vue";
-import { nextTick, ref, defineProps, reactive, watchEffect } from "vue";
+import { defineProps, nextTick, reactive, ref, watchEffect } from "vue";
 import { QuestionControllerService } from "../../generated";
 
 const props = defineProps(["record"]);
@@ -115,7 +115,7 @@ const onsubmit = async () => {
 <template>
   <div id="createQuestion">
     <h1>更新题目</h1>
-    <a-form model="form" :style="{ width: '600px' }">
+    <a-form :style="{ width: '600px' }" model="form">
       <h3>标题</h3>
       <a-form-item>
         <a-input v-model="form.title" placeholder="输入标题" />
@@ -126,8 +126,8 @@ const onsubmit = async () => {
           <a-tag
             v-for="(tag, index) of form.tags"
             :key="tag"
-            :color="colors[index]"
             :closable="index !== -1"
+            :color="colors[index]"
             @close="handleRemove(tag)"
           >
             {{ tag }}
@@ -135,11 +135,11 @@ const onsubmit = async () => {
           <a-input
             v-if="showInput"
             ref="inputRef"
+            v-model.trim="inputVal"
             :style="{ width: '90px' }"
             size="mini"
-            v-model.trim="inputVal"
-            @keyup.enter="handleAddTag"
             @blur="handleAddTag"
+            @keyup.enter="handleAddTag"
           />
           <a-tag
             v-else
@@ -168,15 +168,15 @@ const onsubmit = async () => {
       堆栈限制：
       <a-input-number v-model="form.judgeConfig.stackLimit"></a-input-number>
       <h3>内容</h3>
-      <MDEditor :value="form.content" :onChange="onChangeContent"></MDEditor>
+      <MDEditor :onChange="onChangeContent" :value="form.content"></MDEditor>
       <h3>答案</h3>
-      <MDEditor :value="form.answer" :onChange="onChangeAnswer"></MDEditor>
+      <MDEditor :onChange="onChangeAnswer" :value="form.answer"></MDEditor>
       <h3>判例</h3>
       <a-form-item
-        :field="`judgeCase[${index}]`"
-        :label="'判例' + index"
         v-for="(item, index) in form.judgeCase"
         :key="index"
+        :field="`judgeCase[${index}]`"
+        :label="'判例' + index"
       >
         输入
         <a-input v-model="item.input" placeholder="输入判例" />
@@ -188,7 +188,7 @@ const onsubmit = async () => {
         >添加判例
       </a-button>
       <br />
-      <a-button @click="onsubmit" type="primary">提交</a-button>
+      <a-button type="primary" @click="onsubmit">提交</a-button>
     </a-form>
   </div>
 </template>

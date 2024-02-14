@@ -157,9 +157,9 @@ public class QuestionController {
         }
         return ResultUtils.success(questionService.getQuestionVO(question, request));
     }
-
     /**
      * 分页获取列表（封装类）
+     *
      *
      * @param questionQueryRequest
      * @param request

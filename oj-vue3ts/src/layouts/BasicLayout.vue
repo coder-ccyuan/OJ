@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import GlobalHeader from "@/components/GlobalHeader.vue";
 </script>
 
@@ -35,8 +35,6 @@ import GlobalHeader from "@/components/GlobalHeader.vue";
 }
 
 #basicLayout .foot {
-  //background: linear-gradient(to right, white, #e8edef); padding: 10px; position: static; bottom: 0; right: 0;
-  left: 0;
-  text-align: center;
+  //background: linear-gradient(to right, white, #e8edef); padding: 10px; position: static; bottom: 0; right: 0; left: 0; text-align: center;
 }
 </style>

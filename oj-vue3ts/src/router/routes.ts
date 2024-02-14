@@ -5,6 +5,7 @@ import ManageQuestion from "@/views/ManageQuestion.vue";
 import LoginView from "@/views/LoginView.vue";
 import RegisterView from "@/views/RegisterView.vue";
 import AddQuestion from "@/views/AddQuestion.vue";
+import SubmintRecord from "@/views/SubmintRecord.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -61,6 +62,15 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       isLogin: true,
       isAdmin: true,
+    },
+  },
+  {
+    name: "提交记录",
+    path: "/subRecord",
+    component: SubmintRecord,
+    meta: {
+      isLogin: false,
+      isAdmin: false,
     },
   },
 ];
